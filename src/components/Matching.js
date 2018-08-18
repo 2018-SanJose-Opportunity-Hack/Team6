@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 export default class Matching extends React.Component {
   constructor(props) {
@@ -8,7 +9,8 @@ export default class Matching extends React.Component {
       highSchool: '',
       colleges: '',
       majors: '',
-      showChannelsAndUsers: false
+      showChannelsAndUsers: false,
+      users: []
     };
 
     this.onCollege = this.onCollege.bind(this);
@@ -31,9 +33,15 @@ export default class Matching extends React.Component {
 
   onMatchMe() {
     console.log("hi");
+    axios.get('https://jsonplaceholder.typicode.com/todos')
+      .then(resp => {
+        this.setState({ users: resp.data });
+      })
+      .catch(error => console.log(error));
   }
 
   render() {
+    console.log("state: ", this.state.users);
     return (
       <div>
         High School: <input onChange={this.onHighSchool}/>
