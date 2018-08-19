@@ -61,9 +61,11 @@ export default class Chat extends React.Component{
             </div>
           </div>
           <div class="col-lg-6">
-            {messages}
+            <div>{messages}</div>
+            <div>
             <textarea id='message' onChange={this.onMessageString}> </textarea>
             <button onClick={this.onSubmitMessage}>Submit</button>
+          </div>
           </div>
         </div>
       </div>

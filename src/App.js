@@ -6,7 +6,7 @@ import Chat from './components/Chat.js';
 
 const Home = () => {
   return (
-    <h1>Home</h1>
+    <h1>FC Connect</h1>
   );
 };
 
