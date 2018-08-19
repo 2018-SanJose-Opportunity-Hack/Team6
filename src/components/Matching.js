@@ -43,7 +43,27 @@ export default class Matching extends React.Component {
 
 
     return (
+
       <div>
+        <div className="container-fullwidth">
+          <nav class="navbar navbar-dark bg-primary">
+            <div className="row">
+              <div className="col-lg-3">
+                Profile
+              </div>
+              <div className="col-lg-3">
+                Community
+              </div>
+              <div className="col-lg-3">
+                Scholarships
+              </div>
+              <div className="col-lg-3">
+                SignOut
+              </div>
+
+            </div>
+          </nav>
+        </div>
         School: <input onChange={this.onSchool}/>
         Majors: <input onChange={this.onMajor}/>
         <button onClick={this.onMatchMe}>Match Me</button>
