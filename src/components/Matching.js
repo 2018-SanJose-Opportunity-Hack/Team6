@@ -1,9 +1,7 @@
 import React from 'react';
-import { Query } from 'react-apollo';
 
-import { loadComponent } from '../helper';
 import Users from './Users';
-import { USERS } from '../schema';
+import { students } from '../data';
 
 export default class Matching extends React.Component {
   constructor(props) {
@@ -13,7 +11,7 @@ export default class Matching extends React.Component {
       school: '',
       majors: '',
       showInfo: false,
-      users: []
+      data: []
     };
 
     this.onSchool = this.onSchool.bind(this);
@@ -31,29 +29,11 @@ export default class Matching extends React.Component {
   }
 
   onMatchMe() {
-    return(
-    <Query query={USERS}
-    variables={{
-      in: {
-        desiredSchoolName: this.state.school
-      }
-    }}
-    >
-     {loadComponent(data => {
-      console.log("data", data);
-        return (
-            <div>
-              hello
-            </div>
-          );
-     })}
-    </Query>
-    );
+    this.setState({ showInfo: true, data: students });
   }
 
   render() {
-    console.log("users", this.state.users);
-    let users = this.state.showInfo ? <Users users={this.state.users}/> : '';
+    let users = this.state.showInfo ? <Users school={this.state.school} majors={this.majors} data={this.state.data} /> : '';
     return (
       <div>
         School: <input onChange={this.onSchool}/>
