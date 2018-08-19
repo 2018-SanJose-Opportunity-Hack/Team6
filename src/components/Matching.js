@@ -1,7 +1,5 @@
 import React from 'react';
-
-import Users from './Users';
-import { students } from '../data';
+import { addUser, updateUser, getUserInfo } from '../db.js'
 
 export default class Matching extends React.Component {
   constructor(props) {
@@ -11,7 +9,7 @@ export default class Matching extends React.Component {
       school: '',
       majors: '',
       showInfo: false,
-      data: []
+      users: [],
     };
 
     this.onSchool = this.onSchool.bind(this);
@@ -28,17 +26,16 @@ export default class Matching extends React.Component {
   }
 
   onMatchMe() {
-    this.setState({ showInfo: true, data: students });
+    this.setState({ showInfo: true });
   }
 
   render() {
-    let users = this.state.showInfo ? <Users school={this.state.school} majors={this.majors} data={this.state.data} /> : '';
+    //let users = this.state.showInfo ? <Users school={this.state.school} majors={this.majors} data={this.state.data} /> : '';
     return (
       <div>
         School: <input onChange={this.onSchool}/>
         Majors: <input onChange={this.onMajor}/>
         <button onClick={this.onMatchMe}>Match Me</button>
-        {users}
       </div>
     );
   }
