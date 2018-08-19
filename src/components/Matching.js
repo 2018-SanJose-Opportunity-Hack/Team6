@@ -1,30 +1,29 @@
 import React from 'react';
-import axios from 'axios';
+import { Query } from 'react-apollo';
+
+import { loadComponent } from '../helper';
+import Users from './Users';
+import { USERS } from '../schema';
 
 export default class Matching extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      highSchool: '',
-      colleges: '',
+      school: '',
       majors: '',
-      showChannelsAndUsers: false,
+      showInfo: false,
       users: []
     };
 
-    this.onCollege = this.onCollege.bind(this);
-    this.onHighSchool = this.onHighSchool.bind(this);
+    this.onSchool = this.onSchool.bind(this);
     this.onMajor = this.onMajor.bind(this);
     this.onMatchMe = this.onMatchMe.bind(this);
   }
 
-  onHighSchool(e) {
-    this.setState({ highSchool: e.target.value });
-  }
-
-  onCollege(e) {
-    this.setState({ colleges: e.target.value });
+  onSchool(e) {
+    console.log('e', e.target.value);
+    this.setState({ school: e.target.value });
   }
 
   onMajor(e) {
@@ -32,22 +31,35 @@ export default class Matching extends React.Component {
   }
 
   onMatchMe() {
-    console.log("hi");
-    axios.get('https://jsonplaceholder.typicode.com/todos')
-      .then(resp => {
-        this.setState({ users: resp.data });
-      })
-      .catch(error => console.log(error));
+    return(
+    <Query query={USERS}
+    variables={{
+      in: {
+        desiredSchoolName: this.state.school
+      }
+    }}
+    >
+     {loadComponent(data => {
+      console.log("data", data);
+        return (
+            <div>
+              hello
+            </div>
+          );
+     })}
+    </Query>
+    );
   }
 
   render() {
-    console.log("state: ", this.state.users);
+    console.log("users", this.state.users);
+    let users = this.state.showInfo ? <Users users={this.state.users}/> : '';
     return (
       <div>
-        High School: <input onChange={this.onHighSchool}/>
-        Colleges: <input onChange={this.onCollege}/>
+        School: <input onChange={this.onSchool}/>
         Majors: <input onChange={this.onMajor}/>
         <button onClick={this.onMatchMe}>Match Me</button>
+        {users}
       </div>
     );
   }
