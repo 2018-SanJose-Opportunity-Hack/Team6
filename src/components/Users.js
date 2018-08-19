@@ -8,7 +8,7 @@ const Users = (props) => {
     <Chat data={props.data.messageArray}/>
     return (
       <div key={i}>
-        <Link to="/chat"><ul>{user}</ul></Link>
+         <Link to="/chat"><ul>{user}</ul></Link>
       </div>
     );
   });
