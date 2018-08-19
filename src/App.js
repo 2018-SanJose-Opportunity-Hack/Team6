@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Matching from './components/Matching.js';
-
-const Chat = () => {
-  return (
-    <h1>Chat</h1>
-  );
-};
+import Chat from './components/Chat.js';
 
 const Home = () => {
   return (
