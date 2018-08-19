@@ -20,7 +20,6 @@ export default class Matching extends React.Component {
   }
 
   onSchool(e) {
-    console.log('e', e.target.value);
     this.setState({ school: e.target.value });
   }
 
