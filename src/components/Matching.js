@@ -1,5 +1,10 @@
 import React from 'react';
+
 import { addUser, updateUser, getUserInfo } from '../db.js'
+import firebaseInit from '../firebase.js';
+import Users from './Users';
+
+const firebase = firebaseInit.initialize;
 
 export default class Matching extends React.Component {
   constructor(props) {
@@ -30,12 +35,19 @@ export default class Matching extends React.Component {
   }
 
   render() {
-    //let users = this.state.showInfo ? <Users school={this.state.school} majors={this.majors} data={this.state.data} /> : '';
+    let users = '';
+    firebase.database().ref('/users').on('value', (snapshot) => {
+      console.log("snapshot", snapshot.val());
+      users = this.state.showInfo ? <Users school={this.state.school} majors={this.majors} data={snapshot.val()} /> : '';
+    })
+
+
     return (
       <div>
         School: <input onChange={this.onSchool}/>
         Majors: <input onChange={this.onMajor}/>
         <button onClick={this.onMatchMe}>Match Me</button>
+        {users}
       </div>
     );
   }
